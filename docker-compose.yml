@@ -27,21 +27,6 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=12345
 
-  ewm-service:
-    build: ./main-service
-    depends_on:
-      - ewm-db
-    environment:
-      - DB_NAME=main
-      - POSTGRES_USER=root
-      - POSTGRES_PASSWORD=root
-      - DB_HOST=ewm-db
-      - DB_PORT=5432
-      - HOST=stats-server
-    ports:
-      - "8080:8080"
-
-
   ewm-db:
     image: postgres:16-alpine
     ports:
