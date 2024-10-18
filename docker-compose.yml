@@ -9,7 +9,6 @@ services:
       - DB_NAME=stats
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=12345
-      - DB_HOST=stat-db
       - DB_PORT=5432
     ports:
       - "9090:9090"
