@@ -1,14 +1,31 @@
+version: '3.8'
+
 services:
   stats-server:
+    build: ./stats/stats-server
+    depends_on:
+      - stats-db
+    environment:
+      - DB_NAME=stats
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=12345
+      - DB_PORT=5432
     ports:
       - "9090:9090"
 
   stats-db:
-    image: postgres:16.1
-
-  ewm-service:
+    image: postgres:16-alpine
     ports:
-      - "8080:8080"
+      - "5438:5432"
+    volumes:
+      - /var/lib/postgresql/data/
+    environment:
+      - POSTGRES_DB=stats
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=12345
 
-  ewm-db:
-    image: postgres:16.1
+
+
+
+
+
