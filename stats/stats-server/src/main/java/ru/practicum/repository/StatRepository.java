@@ -17,7 +17,7 @@ public interface StatRepository extends JpaRepository<EndpointHit, Integer> {
 
     @Query("select new ru.practicum.ViewStats(e.app, e.uri, count(e.uri) as hits) from EndpointHit as e where e.uri IN :uris AND e.timestamp " +
             "BETWEEN :start AND :end group by e.uri, e.app order by hits desc")
-    public List<ViewStats> findRequest(@Param("start") LocalDateTime start, @Param("end") LocalDateTime end,@Param("uris") List<String> uris);
+    public List<ViewStats> findRequest(@Param("start") LocalDateTime start, @Param("end") LocalDateTime end, @Param("uris") List<String> uris);
 
     @Query("select new ru.practicum.ViewStats(e.app, e.uri, count(e.uri) as hits) from EndpointHit as e where e.timestamp " +
             "BETWEEN :start AND :end group by e.uri, e.app order by hits desc")
