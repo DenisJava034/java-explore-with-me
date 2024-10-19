@@ -1,14 +1,55 @@
+version: '3.8'
+
 services:
   stats-server:
+    build: ./stats/stats-server
+    #  "зависит от",
+    depends_on:
+      - stats-db
+    # переменные окружения
+    environment:
+      - DB_NAME=stats
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=12345
+      - DB_HOST=stats-db
+      - DB_PORT=5432
     ports:
       - "9090:9090"
 
   stats-db:
-    image: postgres:16.1
+    image: postgres:16-alpine
+    ports:
+      - "5438:5432"
+    volumes:
+      - /var/lib/postgresql/data/
+    environment:
+      - POSTGRES_DB=stats
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=12345
 
   ewm-service:
+    build: ./main-service
+    depends_on:
+      - ewm-db
+    environment:
+      - DB_NAME=main
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+      - DB_HOST=ewm-db
+      - DB_PORT=5432
+      - HOST=stats-server
     ports:
       - "8080:8080"
 
+
   ewm-db:
-    image: postgres:16.1
+    image: postgres:16-alpine
+    ports:
+      - "5437:5432"
+    volumes:
+      - /var/lib/postgresql/data/
+    environment:
+      - POSTGRES_DB=main
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+      - DB_PORT=5432
