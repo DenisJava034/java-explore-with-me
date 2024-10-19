@@ -21,11 +21,12 @@ public class StatController {
 
     @Autowired
     private final StatServiceImpl service;
-    ObjectMapper mapper = new ObjectMapper();
+    private final ObjectMapper mapper = new ObjectMapper();
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/hit")
-    public String createHit(HttpServletRequest request, @RequestBody EndpointHitDto endpointHit) throws JsonProcessingException, InvalidDateTimeException {
+    public String createHit(HttpServletRequest request, @RequestBody EndpointHitDto endpointHit)
+            throws JsonProcessingException, InvalidDateTimeException {
         String response = service.createHit(request, endpointHit);
         return mapper.writeValueAsString(response);
     }

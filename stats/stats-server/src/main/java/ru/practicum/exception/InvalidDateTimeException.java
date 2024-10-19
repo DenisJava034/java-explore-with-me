@@ -2,7 +2,7 @@ package ru.practicum.exception;
 
 public class InvalidDateTimeException extends Exception {
 
-    String message;
+    private String message;
 
     public InvalidDateTimeException(String message) {
         super(message);

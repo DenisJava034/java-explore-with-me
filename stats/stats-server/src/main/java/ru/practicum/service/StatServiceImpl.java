@@ -3,7 +3,7 @@ package ru.practicum.service;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.practicum.EndpointHitDto;
-import ru.practicum.mapper.Mapper;
+import ru.practicum.model.Mapper;
 import ru.practicum.ViewStats;
 import ru.practicum.exception.InvalidDateTimeException;
 import ru.practicum.model.EndpointHit;
@@ -39,12 +39,8 @@ public class StatServiceImpl implements StatService {
             viewStatsList = repository.findRequestWithNullUris(startMoment, endMoment);
             return viewStatsList;
         }
-        if (unique.equals(true)) {
-            viewStatsList = repository.findUniqueRequest(startMoment, endMoment, uris);
-        } else {
-            viewStatsList = repository.findRequest(startMoment, endMoment, uris);
-        }
-        return viewStatsList;
+        return viewStatsList = (unique.equals(true)) ? repository.findUniqueRequest(startMoment, endMoment, uris) :
+                repository.findRequest(startMoment, endMoment, uris);
     }
 
     private void validateTimestamp(LocalDateTime time) throws InvalidDateTimeException {

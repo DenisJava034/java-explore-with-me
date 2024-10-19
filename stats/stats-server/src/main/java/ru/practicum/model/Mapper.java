@@ -1,13 +1,14 @@
-package ru.practicum.mapper;
+package ru.practicum.model;
 
+import lombok.experimental.UtilityClass;
 import ru.practicum.EndpointHitDto;
-import ru.practicum.model.EndpointHit;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+@UtilityClass
 public class Mapper {
-    public static EndpointHit convertToEndpointHit(EndpointHitDto endpointHitDto) {
+    public EndpointHit convertToEndpointHit(EndpointHitDto endpointHitDto) {
         EndpointHit endpointHit = new EndpointHit();
 
         endpointHit.setApp(endpointHitDto.getApp());
